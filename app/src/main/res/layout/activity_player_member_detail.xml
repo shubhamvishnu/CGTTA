@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cgtta.cgtta.PlayerMemberDetailActivity">
+
+    <TextView
+        android:id="@+id/pd_name_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"/>
+
+    <TextView
+        android:id="@+id/pd_rank_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rank"/>
+
+    <TextView
+        android:id="@+id/pd_bio_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bio/Achievements"/>
+
+    <TextView
+        android:id="@+id/pd_email_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email"/>
+
+    <TextView
+        android:id="@+id/pd_number_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Number"
+        />
+
+</LinearLayout>
