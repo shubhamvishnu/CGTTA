@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.cgtta.cgtta.PlayerMemberDetailActivity">
-
+    <android.support.v4.widget.CircleImageView
+        android:id="@+id/pd_profile_image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
     <TextView
         android:id="@+id/pd_name_textview"
         android:layout_width="match_parent"
