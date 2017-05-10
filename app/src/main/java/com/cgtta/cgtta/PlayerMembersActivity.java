@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.cgtta.cgtta.adapters.PlayerMemberAdapter;
 
 public class PlayerMembersActivity extends AppCompatActivity {
-    RecyclerView playerRecyclerView;
+    public static RecyclerView playerRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

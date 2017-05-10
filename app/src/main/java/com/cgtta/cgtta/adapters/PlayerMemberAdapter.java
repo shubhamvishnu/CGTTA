@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.cgtta.cgtta.PlayerMembersActivity;
 import com.cgtta.cgtta.R;
 import com.cgtta.cgtta.classes.FirebaseReferences;
 import com.cgtta.cgtta.viewholders.PlayerMembersViewHolder;
@@ -39,7 +40,7 @@ import java.util.Map;
  * Created by shubh on 5/9/2017.
  */
 
-public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
     public static int VIEW_TYPE_PLAYER_BASIC_DETAIL = 1;
     Context context;
     private LayoutInflater inflator;
@@ -54,9 +55,11 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.inflator = LayoutInflater.from(context);
         init();
     }
-    private void init(){
+
+    private void init() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+
         databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_PLAYER_MEMBER);
         databaseReference.keepSynced(true);
 
@@ -65,7 +68,8 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         initItems();
     }
-    void initItems(){
+
+    void initItems() {
         memberMap = new HashMap<>();
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
@@ -73,7 +77,7 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 int position = memberMapList.size();
                 memberMap.put("name", dataSnapshot.child("name").getValue().toString());
                 memberMap.put("rank", dataSnapshot.child("rank").getValue().toString());
-                memberMap.put("profile_url", dataSnapshot.child("profile_url").toString());
+                memberMap.put("url", dataSnapshot.getKey());
                 memberMapList.add(memberMap);
                 Toast.makeText(context, "content:" + memberMap.toString(), Toast.LENGTH_SHORT).show();
                 notifyItemInserted(position);
@@ -110,26 +114,53 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_PLAYER_BASIC_DETAIL) {
             View view = inflator.inflate(R.layout.recyclerview_player_member_row_layout, parent, false);
+            view.setOnClickListener(this);
             PlayerMembersViewHolder viewHolder = new PlayerMembersViewHolder(view);
             return viewHolder;
-        }else{
+        } else {
             return null;
         }
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(getItemViewType(position) == VIEW_TYPE_PLAYER_BASIC_DETAIL){
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) == VIEW_TYPE_PLAYER_BASIC_DETAIL) {
             Map<String, Object> member = memberMapList.get(position);
             ((PlayerMembersViewHolder) holder).nameTextView.setText(member.get("name").toString());
             ((PlayerMembersViewHolder) holder).rankTextView.setText(member.get("rank").toString());
-            Toast.makeText(context,member.get("profile_url").toString() , Toast.LENGTH_SHORT).show();
+
+            Glide.with(context /* context */)
+                    .using(new FirebaseImageLoader())
+                    .load(storageReference.child(FirebaseReferences.FIREBASE_PROFILE_PICTURES + "/"+member.get("url")+".jpg"))
+                    .into(((PlayerMembersViewHolder) holder).profileImageView);
+
 
         }
     }
+    /*
+    storageReference.child(FirebaseReferences.FIREBASE_PROFILE_PICTURES + "/"+member.get("url")+".jpg").getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Toast.makeText(context, "success.", Toast.LENGTH_SHORT).show();
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    ((PlayerMembersViewHolder) holder).profileImageView.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            });
+     */
 
     @Override
     public int getItemCount() {
         return memberMapList.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int itemPosition = PlayerMembersActivity.playerRecyclerView.getChildLayoutPosition(v);
+        Toast.makeText(context, ""+itemPosition, Toast.LENGTH_SHORT).show();
     }
 }
