@@ -28,7 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RankingListActivity extends AppCompatActivity {
-
+    public static RecyclerView rankingListRecyclerView;
+    TextView titleTextView;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     List<String> colHeadersList;
@@ -36,27 +37,58 @@ public class RankingListActivity extends AppCompatActivity {
     String playerCategory = "Cadet_Girls";
     List<String> rowContentList;
     List<String> colContentList;
-    public static RecyclerView rankingListRecyclerView;
+
+    List<String> yearList;
+    List<String> playerCategoriesList;
+
+    String title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking_list);
+
         init();
 
     }
+
 
     void init() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_RANKING_LIST);
         databaseReference.keepSynced(true);
 
-
+        titleTextView = (TextView) findViewById(R.id.rl_title_text_view);
         rankingListRecyclerView = (RecyclerView) findViewById(R.id.rl_recyclerview);
         colHeadersList = new ArrayList<>();
         colContentList = new ArrayList<>();
         rowContentList = new ArrayList<>();
-        initLists();
+        yearList = new ArrayList<>();
+        playerCategoriesList = new ArrayList<>();
+        initContent();
+
+    }
+    void initContent(){
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    yearList.add(snapshot.getKey());
+                    for(DataSnapshot snap: snapshot.getChildren()){
+                        playerCategoriesList.add(snap.getKey());
+                    }
+                }
+                selectedYear = yearList.get(yearList.size()-1);
+                playerCategory = playerCategoriesList.get(playerCategoriesList.size() - 1);
+                initLists();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -64,21 +96,26 @@ public class RankingListActivity extends AppCompatActivity {
         databaseReference.child(selectedYear + "/" + playerCategory).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String title = dataSnapshot.child("title").getValue().toString();
+                title = dataSnapshot.child("title").getValue().toString();
 
                 for (DataSnapshot snapshot : dataSnapshot.child("headers").getChildren()) {
                     colHeadersList.add(snapshot.getValue().toString());
                 }
-
                 for (DataSnapshot snapshot : dataSnapshot.child("rowContents").getChildren()) {
                     int count = -1;
                     for (DataSnapshot snapshotChild : snapshot.getChildren()) {
                         ++count;
-                        colContentList.add(colHeadersList.get(count));
-                        rowContentList.add(snapshotChild.getValue().toString());
+                        if(count == colHeadersList.size()){
+                            colContentList.add("NIL");
+                        }else{
+                            colContentList.add(colHeadersList.get(count));
+                        }
+
+                            rowContentList.add(snapshotChild.getValue().toString());
+
                     }
                 }
-                initRecyclerView();
+                initView();
 
             }
 
@@ -89,37 +126,12 @@ public class RankingListActivity extends AppCompatActivity {
         });
     }
 
-    void initRecyclerView() {
+    void initView() {
+        titleTextView.setText(title);
         rankingListRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RankingListActivity.this);
         rankingListRecyclerView.setLayoutManager(linearLayoutManager);
         RankingListAdapter rankingListAdapter = new RankingListAdapter(RankingListActivity.this, colContentList, rowContentList);
         rankingListRecyclerView.setAdapter(rankingListAdapter);
     }
-/*
-    void showContent() {
-        String title = dataSnapshot.child("title").getValue().toString();
-        int noOfHeadersCount = (int) dataSnapshot.child("headers").getChildrenCount();
-        DataSnapshot headerSnapshot = dataSnapshot.child("headers");
-        TableRow headerRow = new TableRow(RankingListActivity.this);
-        headerRow.setLayoutParams(new TableRow.LayoutParams(
-                TableRow.LayoutParams.FILL_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT));
-        for (int i = 0; i < noOfHeadersCount; i++) {
-            TextView headerRowValue = new TextView(RankingListActivity.this);
-            headerRowValue.setText(headerSnapshot.child("" + i).getValue().toString());
-            headerRowValue.setTextColor(Color.BLACK);
-            headerRowValue.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-            headerRowValue.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-            headerRowValue.setPadding(4, 0, 0, 0);
-            headerRow.addView(headerRow);
-        }
-        rankingListTable.addView(headerRow);
-
-
-
-
-    }
-    */
-
 }
