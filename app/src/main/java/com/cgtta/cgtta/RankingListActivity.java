@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cgtta.cgtta.classes.FirebaseReferences;
 import com.google.firebase.database.ChildEventListener;
@@ -25,7 +26,7 @@ public class RankingListActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     Map<Integer, DataSnapshot> yearListSnapShot;
     int selectedYear = 2017;
-    String playerCategory = "Cadet Girls";
+    String playerCategory = "Cadet_Girls";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,9 @@ public class RankingListActivity extends AppCompatActivity {
     }
 
     void showContent() {
+
         DataSnapshot datasnapshot = yearListSnapShot.get(selectedYear).child(playerCategory);
+
 
         String title = datasnapshot.child("title").getValue().toString();
         int noOfHeadersCount = (int) datasnapshot.child("headers").getChildrenCount();
@@ -95,6 +98,7 @@ public class RankingListActivity extends AppCompatActivity {
             headerRowValue.setPadding(4, 0, 0, 0);
             headerRow.addView(headerRow);
         }
+        rankingListTable.addView(headerRow);
 
 
     }
