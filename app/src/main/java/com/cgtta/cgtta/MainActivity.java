@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         toPlayerMembersActivity();
     }
     void toPlayerMembersActivity(){
-        Intent intent = new Intent(MainActivity.this, PlayerMembersActivity.class);
+        Intent intent = new Intent(MainActivity.this, AssociationMemberDetailsActivity.class);
         startActivity(intent);
     }
 }

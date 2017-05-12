@@ -46,9 +46,10 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private LayoutInflater inflator;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    StorageReference storageReference;
     Map<String, Object> memberMap;
     List<Map<String, Object>> memberMapList;
-    StorageReference storageReference;
+
 
     public PlayerMemberAdapter(Context context) {
         this.context = context;
