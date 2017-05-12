@@ -9,6 +9,7 @@ public class FirebaseReferences {
     // database references
     public static final String FIREBASE_PLAYER_MEMBER = "player_member";
     public static final String FIREBASE_ASSOCIATION_MEMBER = "association_member";
+    public static final String FIREBASE_RANKING_LIST = "ranking_list";
 
     // storage references
     public static final String FIREBASE_PROFILE_PICTURES = "profile_images";
