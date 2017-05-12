@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".PlayerMembersActivity" />
         <activity android:name=".PlayerMemberDetailActivity" />
-        <activity android:name=".AssociationMemberDetailsActivity"></activity>
+        <activity android:name=".AssociationMemberDetailsActivity" />
+        <activity android:name=".RankingListActivity"></activity>
     </application>
 
 </manifest>

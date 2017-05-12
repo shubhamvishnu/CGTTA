@@ -25,9 +25,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * Created by shubh on 5/12/2017.
@@ -69,7 +69,7 @@ public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int position = associationDetailsList.size();
 
-                AssociationDetails associationDetails = new AssociationDetails(dataSnapshot.child("title").toString(), dataSnapshot.child("name").toString(), dataSnapshot.child("position").toString(), dataSnapshot.getKey());
+                AssociationDetails associationDetails = new AssociationDetails(dataSnapshot.child("title").getValue().toString(), dataSnapshot.child("name").getValue().toString(), dataSnapshot.child("position").getValue().toString(), dataSnapshot.getKey());
                 associationDetailsList.add(associationDetails);
 
                 notifyItemInserted(position);
