@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -27,14 +31,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RankingListActivity extends AppCompatActivity {
+public class RankingListActivity extends AppCompatActivity{
     public static RecyclerView rankingListRecyclerView;
     TextView titleTextView;
+    Spinner playerSpinner, yearSpinner;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     List<String> colHeadersList;
-    String selectedYear = "2017";
-    String playerCategory = "Cadet_Girls";
+    String selectedYear;
+    String playerCategory;
     List<String> rowContentList;
     List<String> colContentList;
 
@@ -59,6 +65,14 @@ public class RankingListActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_RANKING_LIST);
         databaseReference.keepSynced(true);
 
+
+        playerSpinner = (Spinner) findViewById(R.id.rl_player_category_spinner);
+        yearSpinner = (Spinner) findViewById(R.id.rl_year_spinner);
+
+        playerSpinner.setVisibility(View.GONE);
+        yearSpinner.setVisibility(View.GONE);
+
+
         titleTextView = (TextView) findViewById(R.id.rl_title_text_view);
         rankingListRecyclerView = (RecyclerView) findViewById(R.id.rl_recyclerview);
         colHeadersList = new ArrayList<>();
@@ -69,17 +83,19 @@ public class RankingListActivity extends AppCompatActivity {
         initContent();
 
     }
-    void initContent(){
+
+    void initContent() {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     yearList.add(snapshot.getKey());
-                    for(DataSnapshot snap: snapshot.getChildren()){
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         playerCategoriesList.add(snap.getKey());
                     }
                 }
-                selectedYear = yearList.get(yearList.size()-1);
+                initSpinners();
+                selectedYear = yearList.get(yearList.size() - 1);
                 playerCategory = playerCategoriesList.get(playerCategoriesList.size() - 1);
                 initLists();
             }
@@ -89,6 +105,47 @@ public class RankingListActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+    void initSpinners(){
+
+        playerSpinner.setVisibility(View.VISIBLE);
+        yearSpinner.setVisibility(View.VISIBLE);
+
+        ArrayAdapter<String> playerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, playerCategoriesList);
+        playerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        playerSpinner.setAdapter(playerAdapter);
+        playerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                playerCategory = parent.getItemAtPosition(position).toString();
+                initLists();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, yearList);
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearSpinner.setAdapter(yearAdapter);
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedYear = parent.getItemAtPosition(position).toString();
+                initLists();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
     }
 
@@ -105,13 +162,13 @@ public class RankingListActivity extends AppCompatActivity {
                     int count = -1;
                     for (DataSnapshot snapshotChild : snapshot.getChildren()) {
                         ++count;
-                        if(count == colHeadersList.size()){
+                        if (count == colHeadersList.size()) {
                             colContentList.add("NIL");
-                        }else{
+                        } else {
                             colContentList.add(colHeadersList.get(count));
                         }
 
-                            rowContentList.add(snapshotChild.getValue().toString());
+                        rowContentList.add(snapshotChild.getValue().toString());
 
                     }
                 }
@@ -134,4 +191,6 @@ public class RankingListActivity extends AppCompatActivity {
         RankingListAdapter rankingListAdapter = new RankingListAdapter(RankingListActivity.this, colContentList, rowContentList);
         rankingListRecyclerView.setAdapter(rankingListAdapter);
     }
+
+
 }

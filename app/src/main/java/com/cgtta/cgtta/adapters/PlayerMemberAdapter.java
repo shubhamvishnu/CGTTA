@@ -60,11 +60,8 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void init() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-
         databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_PLAYER_MEMBER);
         databaseReference.keepSynced(true);
-
-
         memberMapList = new ArrayList<>();
 
         initItems();
@@ -138,21 +135,6 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         }
     }
-    /*
-    storageReference.child(FirebaseReferences.FIREBASE_PROFILE_PICTURES + "/"+member.get("url")+".jpg").getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    Toast.makeText(context, "success.", Toast.LENGTH_SHORT).show();
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    ((PlayerMembersViewHolder) holder).profileImageView.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                }
-            });
-     */
 
     @Override
     public int getItemCount() {
