@@ -1,5 +1,6 @@
 package com.cgtta.cgtta.viewholders;
 
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;

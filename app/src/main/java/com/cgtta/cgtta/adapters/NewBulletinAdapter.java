@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.cgtta.cgtta.NewsBulletinActivity;
-import com.cgtta.cgtta.PlayerMembersActivity;
+import com.cgtta.cgtta.MainActivity;
 import com.cgtta.cgtta.R;
 import com.cgtta.cgtta.classes.FirebaseReferences;
 import com.cgtta.cgtta.classes.NewsArticlePOJO;
 import com.cgtta.cgtta.viewholders.NewsBulletinArticleViewHolder;
-import com.cgtta.cgtta.viewholders.PlayerMembersViewHolder;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,9 +23,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by shubh on 5/16/2017.
@@ -69,6 +65,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 int position = articleTypeList.size();
                 if (dataSnapshot.child("type").getValue().toString().equals("article")) {
                     NewsArticlePOJO newsArticlePOJO = dataSnapshot.getValue(NewsArticlePOJO.class);
+                    newsArticlePOJO.setImageUrl(dataSnapshot.getKey());
                     newArticleList.add(newsArticlePOJO);
                     articleTypeList.add("article");
                     notifyItemInserted(position);
@@ -141,7 +138,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onClick(View v) {
-        int itemPosition = NewsBulletinActivity.newsBulletinArticleRecyclerView.getChildLayoutPosition(v);
+        int itemPosition = MainActivity.newsBulletinArticleRecyclerView.getChildLayoutPosition(v);
         Toast.makeText(context, "" + itemPosition, Toast.LENGTH_SHORT).show();
     }
 }

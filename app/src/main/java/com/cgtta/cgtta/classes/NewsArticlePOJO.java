@@ -10,12 +10,6 @@ public class NewsArticlePOJO {
     String imageUrl;
     String type;
 
-    public NewsArticlePOJO(String title, String content, String imageUrl, String type) {
-        this.title = title;
-        this.content = content;
-        this.imageUrl = imageUrl;
-        this.type = type;
-    }
 
     public String getTitle() {
         return title;
