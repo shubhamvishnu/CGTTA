@@ -11,9 +11,11 @@ public class FirebaseReferences {
     public static final String FIREBASE_ASSOCIATION_MEMBER = "association_member";
     public static final String FIREBASE_RANKING_LIST = "ranking_list";
     public static final String FIREBASE_CONTACT = "contact";
+    public static final String FIREBASE_ARTICLES = "articles";
 
 
     // storage references
     public static final String FIREBASE_PROFILE_PICTURES = "profile_images";
     public static final String FIREBASE_ASSOCIATION_PROFILE_PICTURES = "association_profile_images";
+    public static final String FIREBASE_ARTICLE_PICTURES = "article_images";
 }

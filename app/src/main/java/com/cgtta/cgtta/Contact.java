@@ -23,7 +23,6 @@ public class Contact extends AppCompatActivity {
     TextView head, position, add1, add2, add3, no1, no2, email1, email2;
     EditText feedbackEditText;
     Button sendButton;
-
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 

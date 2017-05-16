@@ -23,7 +23,8 @@
         <activity android:name=".PlayerMemberDetailActivity" />
         <activity android:name=".AssociationMemberDetailsActivity" />
         <activity android:name=".RankingListActivity" />
-        <activity android:name=".Contact"></activity>
+        <activity android:name=".Contact" />
+        <activity android:name=".NewsBulletinActivity"></activity>
     </application>
 
 </manifest>
