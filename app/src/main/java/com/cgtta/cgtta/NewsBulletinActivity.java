@@ -1,5 +1,6 @@
 package com.cgtta.cgtta;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.cgtta.cgtta.adapters.NewBulletinAdapter;
 
-public class NewsBulletinActivity extends AppCompatActivity {
+public class NewsBulletinActivity extends Activity {
     public static RecyclerView newsBulletinArticleRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

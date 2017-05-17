@@ -1,7 +1,10 @@
 package com.cgtta.cgtta.adapters;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,6 +121,7 @@ public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_ASSOC_BASIC_DETAIL) {
             ((AssociationMemberContentViewHolder) holder).titleTextView.setText(associationDetailsList.get(position).getTitle());
+
             ((AssociationMemberContentViewHolder) holder).nameTextView.setText(associationDetailsList.get(position).getName());
             ((AssociationMemberContentViewHolder) holder).positionTextView.setText(associationDetailsList.get(position).getPosition());
 
