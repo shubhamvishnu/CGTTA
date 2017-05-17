@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import com.cgtta.cgtta.NewsBulletinActivity;
+import com.cgtta.cgtta.MainActivity;
 import com.cgtta.cgtta.R;
 import com.cgtta.cgtta.classes.FirebaseReferences;
 import com.cgtta.cgtta.classes.NewsArticlePOJO;
@@ -173,7 +173,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onClick(View v) {
-        int itemPosition = NewsBulletinActivity.newsBulletinArticleRecyclerView.getChildLayoutPosition(v);
+        int itemPosition = MainActivity.newsBulletinArticleRecyclerView.getChildLayoutPosition(v);
         Toast.makeText(context, "" + itemPosition, Toast.LENGTH_SHORT).show();
     }
 }

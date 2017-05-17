@@ -48,6 +48,7 @@ public class Contact extends AppCompatActivity implements NavigationView.OnNavig
     }
     void initNavigationDrawer(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_contact);
+        toolbar.setTitle("Contact Us");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_contact);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -148,10 +149,15 @@ public class Contact extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             }
+            case R.id.news_menu: {
+                intent = new Intent(Contact.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            }
 
 
         }
-        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_rank);
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_contact);
         drawer1.closeDrawer(GravityCompat.START);
         return false;
     }

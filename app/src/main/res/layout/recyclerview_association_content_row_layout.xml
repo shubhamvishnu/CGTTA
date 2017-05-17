@@ -8,7 +8,9 @@
         android:id="@+id/a_title_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title" />
+        android:background="@color/tisy_accent"
+        android:padding="8dp"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,16 +37,25 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:text="Name"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/a_position_textview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:text="Position"
-                android:textColor="@android:color/black" />
+                android:padding="6dp"
+                android:background="@drawable/team_background"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white" />
 </LinearLayout>

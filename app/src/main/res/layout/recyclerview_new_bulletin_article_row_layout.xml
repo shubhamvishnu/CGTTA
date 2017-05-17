@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="8dp"
-            android:text="News Bulletin"
+            android:text="News"
             android:textColor="@color/white" />
 
         <android.support.v7.widget.AppCompatImageButton
@@ -29,12 +29,9 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_news" />
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/white" />
 
     <LinearLayout
+        android:layout_margin="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -86,14 +83,17 @@
     </LinearLayout>
 
     <TextView
+        android:layout_margin="4dp"
         android:id="@+id/article_by"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:layout_gravity="right"
+        android:gravity="right"
         android:textSize="14sp" />
 
     <LinearLayout
-
+        android:layout_margin="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

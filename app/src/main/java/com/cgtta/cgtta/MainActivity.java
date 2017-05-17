@@ -22,13 +22,19 @@ import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.NewBulletinAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    public static RecyclerView newsBulletinArticleRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_news_bulletin);
+        initNavigationDrawer();
+        init();
+    }
 
+    void initNavigationDrawer() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        toolbar.setTitle("News Bulletin");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -38,11 +44,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_main);
         navigationView.setNavigationItemSelectedListener(this);
-        View hView =  navigationView.getHeaderView(0);
+        View hView = navigationView.getHeaderView(0);
         ImageView navImageHeader = (ImageView) hView.findViewById(R.id.navigation_drawer_header);
         Glide.with(this).load(R.drawable.cgtta_logo).into(navImageHeader);
+    }
 
-
+    void init() {
+        newsBulletinArticleRecyclerView = (RecyclerView) findViewById(R.id.nb_recyclerview);
+        newsBulletinArticleRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+        newsBulletinArticleRecyclerView.setLayoutManager(linearLayoutManager);
+        NewBulletinAdapter newBulletinAdapter = new NewBulletinAdapter(MainActivity.this);
+        newsBulletinArticleRecyclerView.setAdapter(newBulletinAdapter);
     }
 
     @Override
@@ -70,6 +83,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             }
+            case R.id.news_menu: {
+                intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+
 
 
         }

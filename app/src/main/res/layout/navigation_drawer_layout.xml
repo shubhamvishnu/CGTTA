@@ -6,6 +6,7 @@
     android:background="@android:color/white">
 
     <ImageView
+        android:layout_margin="16dp"
         android:id="@+id/navigation_drawer_header"
         android:layout_width="fill_parent"
         android:layout_height="200dp"

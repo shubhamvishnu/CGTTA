@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/news_menu"
+            android:icon="@drawable/ic_association_members_black"
+            android:title="News Bulletin" />
+
+        <item
             android:id="@+id/association_members_menu"
             android:icon="@drawable/ic_association_members_black"
             android:title="Association members" />
@@ -17,7 +22,5 @@
             android:id="@+id/contact_menu"
             android:icon="@drawable/ic_contact_black"
             android:title="Contact" />
-
-
     </group>
 </menu>

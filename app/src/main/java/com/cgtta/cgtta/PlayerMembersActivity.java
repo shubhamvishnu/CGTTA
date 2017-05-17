@@ -30,6 +30,7 @@ public class PlayerMembersActivity extends AppCompatActivity implements Navigati
     }
     void initNavigationDrawer(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_player);
+        toolbar.setTitle("Players");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_player);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -77,7 +78,11 @@ public class PlayerMembersActivity extends AppCompatActivity implements Navigati
                 startActivity(intent);
                 break;
             }
-
+            case R.id.news_menu: {
+                intent = new Intent(PlayerMembersActivity.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            }
 
         }
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_player);

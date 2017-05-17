@@ -14,12 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.AssociationMemberAdapter;
-import com.cgtta.cgtta.adapters.PlayerMemberAdapter;
-import com.cgtta.cgtta.classes.AssociationDetails;
 
 public class AssociationMemberDetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static RecyclerView associationMemberRecyclerView;
@@ -27,13 +24,14 @@ public class AssociationMemberDetailsActivity extends AppCompatActivity implemen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_association_member_details);
+        setContentView(R.layout.activity_association_members);
         initNavigationDrawer();
         init();
     }
 
     void initNavigationDrawer() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_assoc);
+        toolbar.setTitle("Association Members");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_assoc);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -79,6 +77,11 @@ public class AssociationMemberDetailsActivity extends AppCompatActivity implemen
             }
             case R.id.contact_menu: {
                 intent = new Intent(AssociationMemberDetailsActivity.this, Contact.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.news_menu: {
+                intent = new Intent(AssociationMemberDetailsActivity.this, MainActivity.class);
                 startActivity(intent);
                 break;
             }

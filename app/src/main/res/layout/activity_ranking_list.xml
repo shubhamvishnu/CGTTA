@@ -15,6 +15,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
             android:orientation="vertical"
             tools:context="com.cgtta.cgtta.RankingListActivity">
 
@@ -36,19 +37,33 @@
             <Spinner
                 android:id="@+id/rl_player_category_spinner"
                 android:layout_width="match_parent"
+                android:background="@color/white"
+                android:padding="8dp"
                 android:layout_height="wrap_content" />
-            <Spinner
-                android:id="@+id/rl_year_spinner"
+            <android.support.v7.widget.RecyclerView
+                android:background="@color/colorPrimary"
+                android:layout_margin="6dp"
+                android:id="@+id/ranking_list_years_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/rl_title_text_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textSize="18sp"
                 android:layout_height="wrap_content" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rl_recyclerview"
+                android:layout_margin="16dp"
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
