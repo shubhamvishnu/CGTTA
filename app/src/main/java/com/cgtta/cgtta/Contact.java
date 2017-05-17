@@ -1,14 +1,24 @@
 package com.cgtta.cgtta;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.classes.FirebaseReferences;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Contact extends AppCompatActivity {
+public class Contact extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView head, position, add1, add2, add3, no1, no2, email1, email2;
     EditText feedbackEditText;
     ImageButton sendButton;
@@ -31,11 +41,26 @@ public class Contact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
+        initNavigationDrawer();
         init();
 
 
     }
+    void initNavigationDrawer(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_contact);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_contact);
 
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.drawer_open_text, R.string.drawer_closed_text);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_contact);
+        navigationView.setNavigationItemSelectedListener(this);
+        View hView =  navigationView.getHeaderView(0);
+        ImageView navImageHeader = (ImageView) hView.findViewById(R.id.navigation_drawer_header);
+        Glide.with(this).load(R.drawable.cgtta_logo).into(navImageHeader);
+    }
     void init() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_CONTACT);
@@ -96,6 +121,39 @@ public class Contact extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.association_members_menu: {
+                intent = new Intent(Contact.this, AssociationMemberDetailsActivity.class);
+                startActivity(intent);
+                break;
+
+            }
+            case R.id.player_details_menu: {
+                intent = new Intent(Contact.this, PlayerMembersActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.ranking_list_menu: {
+                intent = new Intent(Contact.this, RankingListActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.contact_menu: {
+                intent = new Intent(Contact.this, Contact.class);
+                startActivity(intent);
+                break;
+            }
+
+
+        }
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_rank);
+        drawer1.closeDrawer(GravityCompat.START);
+        return false;
     }
 }
 

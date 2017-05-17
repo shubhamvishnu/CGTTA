@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CGTTA</string>
+    <string name="drawer_open_text">Drawer Opened</string>
+    <string name="drawer_closed_text">Drawer Closed</string>
 </resources>

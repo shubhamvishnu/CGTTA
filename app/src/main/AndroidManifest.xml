@@ -12,20 +12,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayerMembersActivity" />
-        <activity android:name=".PlayerMemberDetailActivity" />
-        <activity android:name=".AssociationMemberDetailsActivity" />
-        <activity android:name=".RankingListActivity" />
-        <activity android:name=".Contact" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".NewsBulletinActivity"></activity>
+        <activity android:name=".PlayerMembersActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".PlayerMemberDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".AssociationMemberDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".RankingListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Contact"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".NewsBulletinActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

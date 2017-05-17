@@ -1,29 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_rank"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.cgtta.cgtta.RankingListActivity">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.cgtta.cgtta.RankingListActivity">
 
-    <Spinner
-        android:id="@+id/rl_player_category_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Spinner
-        android:id="@+id/rl_year_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-    <TextView
-        android:id="@+id/rl_title_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_rank"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorAccent"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rl_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        </android.support.design.widget.AppBarLayout>
 
-</LinearLayout>
+
+            <Spinner
+                android:id="@+id/rl_player_category_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/rl_year_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/rl_title_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rl_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/navigation_drawer_layout"
+        app:menu="@menu/navigation_drawer_menu" />
+
+</android.support.v4.widget.DrawerLayout>
