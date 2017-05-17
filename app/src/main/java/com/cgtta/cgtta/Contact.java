@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ import java.util.Objects;
 public class Contact extends AppCompatActivity {
     TextView head, position, add1, add2, add3, no1, no2, email1, email2;
     EditText feedbackEditText;
-    Button sendButton;
+    ImageButton sendButton;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
@@ -51,7 +52,7 @@ public class Contact extends AppCompatActivity {
         email2 = (TextView) findViewById(R.id.c_email2_textview);
 
         feedbackEditText = (EditText) findViewById(R.id.feedback_edittext);
-        sendButton = (Button) findViewById(R.id.send_feedback_button);
+        sendButton = (ImageButton) findViewById(R.id.send_feedback_button);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +83,8 @@ public class Contact extends AppCompatActivity {
                 head.setText(dataSnapshot.child("head").getValue().toString());
                 position.setText(dataSnapshot.child("position").getValue().toString());
                 add1.setText(dataSnapshot.child("address1").getValue().toString());
-                add2.setText(dataSnapshot.child("address1").getValue().toString());
-                add3.setText(dataSnapshot.child("address1").getValue().toString());
+                add2.setText(dataSnapshot.child("address2").getValue().toString());
+                add3.setText(dataSnapshot.child("address3").getValue().toString());
                 no1.setText(dataSnapshot.child("number1").getValue().toString());
                 no2.setText(dataSnapshot.child("number2").getValue().toString());
                 email1.setText(dataSnapshot.child("email1").getValue().toString());

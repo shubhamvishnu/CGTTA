@@ -145,6 +145,9 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (getItemViewType(position) == VIEW_BASIC_ARTICLE) {
             ((NewsBulletinArticleViewHolder) holder).titleTextView.setText(newArticleList.get(articlesCount).getTitle());
             ((NewsBulletinArticleViewHolder) holder).contentTextView.setText(newArticleList.get(articlesCount).getContent());
+            ((NewsBulletinArticleViewHolder) holder).byTextView.setText(newArticleList.get(articlesCount).getBy());
+            ((NewsBulletinArticleViewHolder) holder).sourceTextView.setText(newArticleList.get(articlesCount).getSource());
+            ((NewsBulletinArticleViewHolder) holder).dateTextView.setText(newArticleList.get(articlesCount).getTime());
 
             Glide.with(context /* context */)
                     .using(new FirebaseImageLoader())
