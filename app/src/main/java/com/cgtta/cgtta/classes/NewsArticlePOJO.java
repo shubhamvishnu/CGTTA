@@ -9,7 +9,33 @@ public class NewsArticlePOJO {
     String content;
     String imageUrl;
     String type;
+    String source;
+    String by;
+    String time;
 
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getBy() {
+        return by;
+    }
+
+    public void setBy(String by) {
+        this.by = by;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getTitle() {
         return title;
