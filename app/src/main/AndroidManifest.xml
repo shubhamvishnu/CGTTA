@@ -45,6 +45,8 @@
         <activity
             android:name=".AssociationMemberDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AboutUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

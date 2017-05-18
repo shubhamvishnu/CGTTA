@@ -20,7 +20,7 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class ArticleActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ArticleActivity extends AppCompatActivity{
     TextView title, content, by, source, date;
     ImageView preview;
     StorageReference storageReference;
@@ -82,11 +82,6 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         } catch (NullPointerException e) {
             onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
     }
 
     @Override

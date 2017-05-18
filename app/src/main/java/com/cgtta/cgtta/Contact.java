@@ -156,7 +156,12 @@ public class Contact extends AppCompatActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             }
-
+            case R.id.about_us_menu: {
+                intent = new Intent(Contact.this, AboutUsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                break;
+            }
 
         }
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_contact);

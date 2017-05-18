@@ -17,7 +17,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.AssociationMemberAdapter;
-import com.cgtta.cgtta.classes.AssociationDetails;
 
 public class AssociationMemberActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static RecyclerView associationMemberRecyclerView;
@@ -87,6 +86,12 @@ public class AssociationMemberActivity extends AppCompatActivity implements Navi
             }
             case R.id.news_menu: {
                 intent = new Intent(AssociationMemberActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                break;
+            }
+            case R.id.about_us_menu: {
+                intent = new Intent(AssociationMemberActivity.this, AboutUsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;

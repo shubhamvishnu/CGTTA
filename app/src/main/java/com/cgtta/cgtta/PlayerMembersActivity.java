@@ -86,6 +86,12 @@ public class PlayerMembersActivity extends AppCompatActivity implements Navigati
                 startActivity(intent);
                 break;
             }
+            case R.id.about_us_menu: {
+                intent = new Intent(PlayerMembersActivity.this, AboutUsActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                break;
+            }
 
         }
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_player);

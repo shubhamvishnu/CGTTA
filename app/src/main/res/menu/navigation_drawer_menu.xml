@@ -19,6 +19,10 @@
             android:icon="@drawable/ic_ranking_list_black"
             android:title="Ranking List" />
         <item
+            android:id="@+id/about_us_menu"
+            android:icon="@drawable/ic_about_us"
+            android:title="About Us" />
+        <item
             android:id="@+id/contact_menu"
             android:icon="@drawable/ic_contact_black"
             android:title="Contact" />
