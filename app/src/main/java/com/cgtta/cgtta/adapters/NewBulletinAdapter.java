@@ -2,6 +2,7 @@ package com.cgtta.cgtta.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,11 +49,13 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     List<NewsMatchPOJO> newMatchList;
     int matchCount;
     List<String> typeList;
+    LinearLayoutManager linearLayoutManager;
 
 
-    public NewBulletinAdapter(Context context) {
+    public NewBulletinAdapter(Context context, LinearLayoutManager linearLayoutManager) {
         this.context = context;
         this.inflator = LayoutInflater.from(context);
+        this.linearLayoutManager = linearLayoutManager;
         init();
     }
 
@@ -89,6 +92,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     typeList.add("match");
                     notifyItemInserted(position);
                 }
+                linearLayoutManager.scrollToPosition(0);
 
             }
 
@@ -191,7 +195,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     int getSpecificCount(int position) {
         int articleCount = -1;
-        for (int i = typeList.size() - 1; i >= position; i--) {
+        for (int i = 0; i <= position; i++) {
             if (typeList.get(i).equals("article")) {
                 ++articleCount;
             }
