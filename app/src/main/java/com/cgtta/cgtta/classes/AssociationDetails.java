@@ -8,13 +8,43 @@ public class AssociationDetails {
     String name;
     String position;
     String title;
+    String email;
+    String number;
+    String address;
     String profile_url;
 
-    public AssociationDetails(String title, String name, String position, String profile_url) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public AssociationDetails(String title, String name, String position, String profile_url, String address, String number, String email) {
         this.name = name;
         this.position = position;
         this.title = title;
         this.profile_url = profile_url;
+        this.address = address;
+        this.email = email;
+        this.number = number;
     }
 
     public String getProfile_url() {

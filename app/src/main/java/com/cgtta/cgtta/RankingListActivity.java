@@ -2,10 +2,7 @@ package com.cgtta.cgtta;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,23 +17,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.cgtta.cgtta.adapters.PlayerMemberAdapter;
 import com.cgtta.cgtta.adapters.RankingListAdapter;
 import com.cgtta.cgtta.classes.FirebaseReferences;
 import com.cgtta.cgtta.viewholders.RankingListPlayerCategoryViewHolder;
-import com.cgtta.cgtta.viewholders.RankingListViewHolder;
 import com.cgtta.cgtta.viewholders.RankingListYearViewHolder;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,9 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RankingListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static RecyclerView rankingListRecyclerView;
@@ -209,7 +195,7 @@ public class RankingListActivity extends AppCompatActivity implements Navigation
         Intent intent;
         switch (item.getItemId()) {
             case R.id.association_members_menu: {
-                intent = new Intent(RankingListActivity.this, AssociationMemberDetailsActivity.class);
+                intent = new Intent(RankingListActivity.this, AssociationMemberActivity.class);
                 startActivity(intent);
                 break;
 

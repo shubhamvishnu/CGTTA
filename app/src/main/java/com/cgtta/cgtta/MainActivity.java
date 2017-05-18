@@ -1,7 +1,5 @@
 package com.cgtta.cgtta;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.NewBulletinAdapter;
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent;
         switch (item.getItemId()) {
             case R.id.association_members_menu: {
-                intent = new Intent(MainActivity.this, AssociationMemberDetailsActivity.class);
+                intent = new Intent(MainActivity.this, AssociationMemberActivity.class);
                 startActivity(intent);
                 break;
 

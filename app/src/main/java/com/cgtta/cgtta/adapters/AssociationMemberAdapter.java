@@ -1,18 +1,18 @@
 package com.cgtta.cgtta.adapters;
 
 import android.content.Context;
-import android.graphics.Paint;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.cgtta.cgtta.AssociationMemberDetailsActivity;
+import com.cgtta.cgtta.ArticleActivity;
+import com.cgtta.cgtta.AssociationMemberActivity;
 
+import com.cgtta.cgtta.AssociationMemberDetailsActivity;
 import com.cgtta.cgtta.R;
 import com.cgtta.cgtta.classes.AssociationDetails;
 import com.cgtta.cgtta.classes.FirebaseReferences;
@@ -71,10 +71,8 @@ public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int position = associationDetailsList.size();
-
-                AssociationDetails associationDetails = new AssociationDetails(dataSnapshot.child("title").getValue().toString(), dataSnapshot.child("name").getValue().toString(), dataSnapshot.child("position").getValue().toString(), dataSnapshot.getKey());
+                AssociationDetails associationDetails = new AssociationDetails(dataSnapshot.child("title").getValue().toString(), dataSnapshot.child("name").getValue().toString(), dataSnapshot.child("position").getValue().toString(), dataSnapshot.getKey(), dataSnapshot.child("address").getValue().toString(), dataSnapshot.child("number").getValue().toString(), dataSnapshot.child("email").getValue().toString());
                 associationDetailsList.add(associationDetails);
-
                 notifyItemInserted(position);
             }
 
@@ -140,7 +138,16 @@ public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.
 
     @Override
     public void onClick(View v) {
-        int itemPosition = AssociationMemberDetailsActivity.associationMemberRecyclerView.getChildLayoutPosition(v);
+        int itemPosition = AssociationMemberActivity.associationMemberRecyclerView.getChildLayoutPosition(v);
+        Intent intent = new Intent(context, AssociationMemberDetailsActivity.class);
+        intent.putExtra("title", associationDetailsList.get(itemPosition).getTitle());
+        intent.putExtra("name", associationDetailsList.get(itemPosition).getName());
+        intent.putExtra("position", associationDetailsList.get(itemPosition).getPosition());
+        intent.putExtra("address", associationDetailsList.get(itemPosition).getAddress());
+        intent.putExtra("number", associationDetailsList.get(itemPosition).getNumber());
+        intent.putExtra("email", associationDetailsList.get(itemPosition).getEmail());
+        intent.putExtra("url", associationDetailsList.get(itemPosition).getProfile_url());
+        context.startActivity(intent);
         Toast.makeText(context, "" + itemPosition, Toast.LENGTH_SHORT).show();
     }
 }

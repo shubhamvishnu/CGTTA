@@ -16,40 +16,43 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.cgtta.cgtta.adapters.PlayerMemberAdapter;
+import com.cgtta.cgtta.adapters.AssociationMemberAdapter;
 
-public class PlayerMembersActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-        public static RecyclerView playerRecyclerView;
+public class AssociationMemberActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    public static RecyclerView associationMemberRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player_members);
+        setContentView(R.layout.activity_association_members);
         initNavigationDrawer();
         init();
     }
-    void initNavigationDrawer(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_player);
-        toolbar.setTitle("Players");
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_player);
+
+    void initNavigationDrawer() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_assoc);
+        toolbar.setTitle("Association Members");
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_assoc);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.drawer_open_text, R.string.drawer_closed_text);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_player);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_assoc);
         navigationView.setNavigationItemSelectedListener(this);
-        View hView =  navigationView.getHeaderView(0);
+        View hView = navigationView.getHeaderView(0);
         ImageView navImageHeader = (ImageView) hView.findViewById(R.id.navigation_drawer_header);
         Glide.with(this).load(R.drawable.cgtta_logo).into(navImageHeader);
     }
-    void init(){
-        playerRecyclerView = (RecyclerView) findViewById(R.id.p_recyclerview);
-        playerRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(PlayerMembersActivity.this);
-        playerRecyclerView.setLayoutManager(linearLayoutManager);
-        PlayerMemberAdapter playerMemberAdapter = new PlayerMemberAdapter(PlayerMembersActivity.this);
-        playerRecyclerView.setAdapter(playerMemberAdapter);
+
+    void init() {
+        associationMemberRecyclerView = (RecyclerView) findViewById(R.id.am_recyclerview);
+        associationMemberRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AssociationMemberActivity.this);
+        associationMemberRecyclerView.setLayoutManager(linearLayoutManager);
+        AssociationMemberAdapter associationMemberAdapter = new AssociationMemberAdapter(AssociationMemberActivity.this);
+        associationMemberRecyclerView.setAdapter(associationMemberAdapter);
     }
 
     @Override
@@ -57,34 +60,34 @@ public class PlayerMembersActivity extends AppCompatActivity implements Navigati
         Intent intent;
         switch (item.getItemId()) {
             case R.id.association_members_menu: {
-                intent = new Intent(PlayerMembersActivity.this, AssociationMemberActivity.class);
+                intent = new Intent(AssociationMemberActivity.this, AssociationMemberActivity.class);
                 startActivity(intent);
                 break;
 
             }
             case R.id.player_details_menu: {
-                intent = new Intent(PlayerMembersActivity.this, PlayerMembersActivity.class);
+                intent = new Intent(AssociationMemberActivity.this, PlayerMembersActivity.class);
                 startActivity(intent);
                 break;
             }
             case R.id.ranking_list_menu: {
-                intent = new Intent(PlayerMembersActivity.this, RankingListActivity.class);
+                intent = new Intent(AssociationMemberActivity.this, RankingListActivity.class);
                 startActivity(intent);
                 break;
             }
             case R.id.contact_menu: {
-                intent = new Intent(PlayerMembersActivity.this, Contact.class);
+                intent = new Intent(AssociationMemberActivity.this, Contact.class);
                 startActivity(intent);
                 break;
             }
             case R.id.news_menu: {
-                intent = new Intent(PlayerMembersActivity.this, MainActivity.class);
+                intent = new Intent(AssociationMemberActivity.this, MainActivity.class);
                 startActivity(intent);
                 break;
             }
 
         }
-        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_player);
+        DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_assoc);
         drawer1.closeDrawer(GravityCompat.START);
         return false;
     }

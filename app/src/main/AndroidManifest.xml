@@ -28,7 +28,7 @@
             android:name=".PlayerMemberDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AssociationMemberDetailsActivity"
+            android:name=".AssociationMemberActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RankingListActivity"
@@ -41,6 +41,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ArticleActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AssociationMemberDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

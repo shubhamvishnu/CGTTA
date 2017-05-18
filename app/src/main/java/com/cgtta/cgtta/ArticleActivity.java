@@ -1,6 +1,7 @@
 package com.cgtta.cgtta;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.ActionBarActivity;
@@ -45,6 +46,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         });
 
         title = (TextView) findViewById(R.id.article_view_title);
+        title.setPaintFlags(title.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         by = (TextView) findViewById(R.id.article_view_by);
         content = (TextView) findViewById(R.id.article_view_content);
         date = (TextView) findViewById(R.id.article_view_time);

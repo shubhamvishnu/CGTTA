@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Contact extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView head, position, add1, add2, add3, no1, no2, email1, email2;
@@ -129,7 +127,7 @@ public class Contact extends AppCompatActivity implements NavigationView.OnNavig
         Intent intent;
         switch (item.getItemId()) {
             case R.id.association_members_menu: {
-                intent = new Intent(Contact.this, AssociationMemberDetailsActivity.class);
+                intent = new Intent(Contact.this, AssociationMemberActivity.class);
                 startActivity(intent);
                 break;
 

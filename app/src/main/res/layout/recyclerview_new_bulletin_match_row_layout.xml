@@ -86,6 +86,7 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:elevation="20dp"
+                android:padding="6dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_expand" />
 
