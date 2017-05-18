@@ -13,14 +13,14 @@ import com.cgtta.cgtta.R;
  */
 
 public class NewsBulletinMatchViewHolder extends RecyclerView.ViewHolder {
-    public TextView title, location, team1, team2, date;
+    public TextView title, location, date;
     public NewsBulletinMatchViewHolder(View itemView) {
         super(itemView);
         title = (TextView) itemView.findViewById(R.id.match_title_textview);
         title.setPaintFlags( title.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
         location = (TextView) itemView.findViewById(R.id.match_location_textview);
-        team1 = (TextView) itemView.findViewById(R.id.match_team1_name_textview);
-        team2 = (TextView) itemView.findViewById(R.id.match_team2_name_textview);
+//        team1 = (TextView) itemView.findViewById(R.id.match_team1_name_textview);
+//        team2 = (TextView) itemView.findViewById(R.id.match_team2_name_textview);
         date = (TextView) itemView.findViewById(R.id.match_date_textview);
     }
 }

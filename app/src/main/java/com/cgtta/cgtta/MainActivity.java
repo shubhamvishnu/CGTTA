@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         newsBulletinArticleRecyclerView.setLayoutManager(linearLayoutManager);
         NewBulletinAdapter newBulletinAdapter = new NewBulletinAdapter(MainActivity.this);
         newsBulletinArticleRecyclerView.setAdapter(newBulletinAdapter);
+
+
     }
 
     @Override

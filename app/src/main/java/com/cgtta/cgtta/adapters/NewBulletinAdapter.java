@@ -89,7 +89,6 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     typeList.add("match");
                     notifyItemInserted(position);
                 }
-                MainActivity.newsBulletinArticleRecyclerView.scrollToPosition(0);
 
             }
 
@@ -162,8 +161,6 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else if (getItemViewType(position) == VIEW_BASIC_MATCH) {
             ((NewsBulletinMatchViewHolder) holder).title.setText(newMatchList.get(matchCount).getTitle());
             ((NewsBulletinMatchViewHolder) holder).location.setText(newMatchList.get(matchCount).getLocation());
-            ((NewsBulletinMatchViewHolder) holder).team1.setText(newMatchList.get(matchCount).getTeam1());
-            ((NewsBulletinMatchViewHolder) holder).team2.setText(newMatchList.get(matchCount).getTeam2());
             ((NewsBulletinMatchViewHolder) holder).date.setText(newMatchList.get(matchCount).getDate());
             ++matchCount;
         }
