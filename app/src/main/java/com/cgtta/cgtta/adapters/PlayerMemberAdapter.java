@@ -84,7 +84,7 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 memberMap.put("url", dataSnapshot.getKey());
                 memberMapList.add(memberMap);
-                Toast.makeText(context, "content:" + memberMap.toString(), Toast.LENGTH_SHORT).show();
+
                 notifyItemInserted(position);
             }
 

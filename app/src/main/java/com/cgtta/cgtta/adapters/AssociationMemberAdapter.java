@@ -148,6 +148,6 @@ public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.
         intent.putExtra("email", associationDetailsList.get(itemPosition).getEmail());
         intent.putExtra("url", associationDetailsList.get(itemPosition).getProfile_url());
         context.startActivity(intent);
-        Toast.makeText(context, "" + itemPosition, Toast.LENGTH_SHORT).show();
+
     }
 }

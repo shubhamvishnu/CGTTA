@@ -63,6 +63,5 @@ public class RankingListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onClick(View v) {
         int itemPosition = RankingListActivity.rankingListRecyclerView.getChildLayoutPosition(v);
-        Toast.makeText(context, ""+itemPosition, Toast.LENGTH_SHORT).show();
     }
 }
