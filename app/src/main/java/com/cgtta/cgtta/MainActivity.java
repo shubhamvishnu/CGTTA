@@ -62,27 +62,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.association_members_menu: {
                 intent = new Intent(MainActivity.this, AssociationMemberActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
 
             }
             case R.id.player_details_menu: {
                 intent = new Intent(MainActivity.this, PlayerMembersActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.ranking_list_menu: {
                 intent = new Intent(MainActivity.this, RankingListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.contact_menu: {
                 intent = new Intent(MainActivity.this, Contact.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.news_menu: {
                 intent = new Intent(MainActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
@@ -95,4 +100,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer1.closeDrawer(GravityCompat.START);
         return false;
     }
+
 }

@@ -64,21 +64,25 @@ public class PlayerMembersActivity extends AppCompatActivity implements Navigati
             }
             case R.id.player_details_menu: {
                 intent = new Intent(PlayerMembersActivity.this, PlayerMembersActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.ranking_list_menu: {
                 intent = new Intent(PlayerMembersActivity.this, RankingListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.contact_menu: {
                 intent = new Intent(PlayerMembersActivity.this, Contact.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.news_menu: {
                 intent = new Intent(PlayerMembersActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
@@ -87,5 +91,11 @@ public class PlayerMembersActivity extends AppCompatActivity implements Navigati
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_player);
         drawer1.closeDrawer(GravityCompat.START);
         return false;
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PlayerMembersActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

@@ -41,8 +41,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ArticleActivity.this, MainActivity.class);
-                startActivity(intent);
+               onBackPressed();
             }
         });
 
@@ -90,4 +89,10 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ArticleActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

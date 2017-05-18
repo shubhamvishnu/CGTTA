@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.AssociationMemberAdapter;
+import com.cgtta.cgtta.classes.AssociationDetails;
 
 public class AssociationMemberActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static RecyclerView associationMemberRecyclerView;
@@ -61,27 +62,32 @@ public class AssociationMemberActivity extends AppCompatActivity implements Navi
         switch (item.getItemId()) {
             case R.id.association_members_menu: {
                 intent = new Intent(AssociationMemberActivity.this, AssociationMemberActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
 
             }
             case R.id.player_details_menu: {
                 intent = new Intent(AssociationMemberActivity.this, PlayerMembersActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.ranking_list_menu: {
                 intent = new Intent(AssociationMemberActivity.this, RankingListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.contact_menu: {
                 intent = new Intent(AssociationMemberActivity.this, Contact.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
             case R.id.news_menu: {
                 intent = new Intent(AssociationMemberActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }
@@ -90,5 +96,11 @@ public class AssociationMemberActivity extends AppCompatActivity implements Navi
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_assoc);
         drawer1.closeDrawer(GravityCompat.START);
         return false;
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AssociationMemberActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

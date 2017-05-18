@@ -29,7 +29,8 @@ public class AssociationMemberDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_association_member_details);
         init();
     }
-    void init(){
+
+    void init() {
         storageReference = FirebaseStorage.getInstance().getReference();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_association_detail);
         toolbar.setTitle("Association Member");
@@ -37,8 +38,7 @@ public class AssociationMemberDetailsActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AssociationMemberDetailsActivity.this, AssociationMemberActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 
@@ -54,7 +54,8 @@ public class AssociationMemberDetailsActivity extends AppCompatActivity {
 
 
     }
-    void initView(){
+
+    void initView() {
         Bundle extras = getIntent().getExtras();
         try {
             if (extras != null) {
@@ -81,4 +82,12 @@ public class AssociationMemberDetailsActivity extends AppCompatActivity {
             onBackPressed();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AssociationMemberDetailsActivity.this, AssociationMemberActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
 }

@@ -36,8 +36,7 @@ public class PlayerMemberDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PlayerMemberDetailActivity.this, PlayerMembersActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 
@@ -73,6 +72,12 @@ public class PlayerMemberDetailActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             onBackPressed();
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PlayerMemberDetailActivity.this, PlayerMembersActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 }
