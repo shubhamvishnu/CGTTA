@@ -36,6 +36,7 @@ public class ArticleActivity extends AppCompatActivity implements NavigationView
         storageReference = FirebaseStorage.getInstance().getReference();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_article);
+        toolbar.setTitle("News");
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

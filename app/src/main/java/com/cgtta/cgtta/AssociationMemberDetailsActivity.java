@@ -31,7 +31,8 @@ public class AssociationMemberDetailsActivity extends AppCompatActivity {
     }
     void init(){
         storageReference = FirebaseStorage.getInstance().getReference();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_article_detail);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_association_detail);
+        toolbar.setTitle("Association Member");
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

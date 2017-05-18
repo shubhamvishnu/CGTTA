@@ -89,6 +89,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     typeList.add("match");
                     notifyItemInserted(position);
                 }
+                MainActivity.newsBulletinArticleRecyclerView.scrollToPosition(0);
 
             }
 

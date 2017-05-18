@@ -1,6 +1,7 @@
 package com.cgtta.cgtta.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.cgtta.cgtta.AssociationMemberDetailsActivity;
+import com.cgtta.cgtta.PlayerMemberDetailActivity;
 import com.cgtta.cgtta.PlayerMembersActivity;
 import com.cgtta.cgtta.R;
 import com.cgtta.cgtta.classes.FirebaseReferences;
@@ -68,13 +71,17 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     void initItems() {
-        memberMap = new HashMap<>();
+
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                memberMap = new HashMap<>();
                 int position = memberMapList.size();
                 memberMap.put("name", dataSnapshot.child("name").getValue().toString());
                 memberMap.put("rank", dataSnapshot.child("rank").getValue().toString());
+                memberMap.put("email", dataSnapshot.child("email").getValue().toString());
+                memberMap.put("number", dataSnapshot.child("number").getValue().toString());
+
                 memberMap.put("url", dataSnapshot.getKey());
                 memberMapList.add(memberMap);
                 Toast.makeText(context, "content:" + memberMap.toString(), Toast.LENGTH_SHORT).show();
@@ -144,6 +151,13 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onClick(View v) {
         int itemPosition = PlayerMembersActivity.playerRecyclerView.getChildLayoutPosition(v);
-        Toast.makeText(context, ""+itemPosition, Toast.LENGTH_SHORT).show();
+        Map<String, Object> member = memberMapList.get(itemPosition);
+        Intent intent = new Intent(context, PlayerMemberDetailActivity.class);
+        intent.putExtra("name", member.get("name").toString());
+        intent.putExtra("rank", member.get("rank").toString());
+        intent.putExtra("email", member.get("email").toString());
+        intent.putExtra("number", member.get("number").toString());
+        intent.putExtra("url", member.get("url").toString());
+        context.startActivity(intent);
     }
 }

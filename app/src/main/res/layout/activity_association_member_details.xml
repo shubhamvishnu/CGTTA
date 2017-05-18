@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_article_detail"
+            android:id="@+id/toolbar_association_detail"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorAccent"
@@ -75,8 +75,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ad_profile_image_view"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:layout_gravity="center"
                     android:layout_margin="6dp" />
 
