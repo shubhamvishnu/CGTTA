@@ -166,6 +166,8 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((NewsBulletinMatchViewHolder) holder).title.setText(newMatchList.get(matchCount).getTitle());
             ((NewsBulletinMatchViewHolder) holder).location.setText(newMatchList.get(matchCount).getLocation());
             ((NewsBulletinMatchViewHolder) holder).date.setText(newMatchList.get(matchCount).getDate());
+            ((NewsBulletinMatchViewHolder) holder).status.setText(newMatchList.get(matchCount).getStatus());
+
             ++matchCount;
         }
     }

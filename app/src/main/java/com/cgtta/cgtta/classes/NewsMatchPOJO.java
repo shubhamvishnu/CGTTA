@@ -7,10 +7,17 @@ package com.cgtta.cgtta.classes;
 public class NewsMatchPOJO {
     String title;
     String location;
-    String team1;
-    String team2;
     String date;
     String type;
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getTitle() {
         return title;
@@ -28,21 +35,6 @@ public class NewsMatchPOJO {
         this.location = location;
     }
 
-    public String getTeam1() {
-        return team1;
-    }
-
-    public void setTeam1(String team1) {
-        this.team1 = team1;
-    }
-
-    public String getTeam2() {
-        return team2;
-    }
-
-    public void setTeam2(String team2) {
-        this.team2 = team2;
-    }
 
     public String getDate() {
         return date;
