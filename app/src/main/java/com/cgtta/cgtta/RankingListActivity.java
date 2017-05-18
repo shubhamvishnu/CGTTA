@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.PlayerMemberAdapter;
 import com.cgtta.cgtta.adapters.RankingListAdapter;
 import com.cgtta.cgtta.classes.FirebaseReferences;
+import com.cgtta.cgtta.viewholders.RankingListPlayerCategoryViewHolder;
 import com.cgtta.cgtta.viewholders.RankingListViewHolder;
 import com.cgtta.cgtta.viewholders.RankingListYearViewHolder;
 import com.google.firebase.database.ChildEventListener;
@@ -50,8 +51,7 @@ import java.util.Map;
 public class RankingListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static RecyclerView rankingListRecyclerView;
     TextView titleTextView;
-    Spinner playerSpinner;
-    public static RecyclerView rankingListYearsRecyclerView;
+    public static RecyclerView rankingListYearsRecyclerView, rankingListPlayerCategoryRecyclerView;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -98,18 +98,12 @@ public class RankingListActivity extends AppCompatActivity implements Navigation
         databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_RANKING_LIST);
         databaseReference.keepSynced(true);
 
-
-        playerSpinner = (Spinner) findViewById(R.id.rl_player_category_spinner);
-
-
-        playerSpinner.setVisibility(View.GONE);
-
-
         titleTextView = (TextView) findViewById(R.id.rl_title_text_view);
-        titleTextView.setPaintFlags( titleTextView.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+        titleTextView.setPaintFlags(titleTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         rankingListRecyclerView = (RecyclerView) findViewById(R.id.rl_recyclerview);
         rankingListYearsRecyclerView = (RecyclerView) findViewById(R.id.ranking_list_years_recyclerview);
+        rankingListPlayerCategoryRecyclerView = (RecyclerView) findViewById(R.id.ranking_list_player_category_recyclerview);
 
         colHeadersList = new ArrayList<>();
         colContentList = new ArrayList<>();
@@ -130,8 +124,8 @@ public class RankingListActivity extends AppCompatActivity implements Navigation
                         playerCategoriesList.add(snap.getKey());
                     }
                 }
-                initSpinners();
                 initYears();
+                initPlayerCategories();
                 selectedYear = yearList.get(yearList.size() - 1);
                 playerCategory = playerCategoriesList.get(playerCategoriesList.size() - 1);
                 initLists();
@@ -144,7 +138,16 @@ public class RankingListActivity extends AppCompatActivity implements Navigation
         });
 
     }
-    void initYears(){
+
+    void initPlayerCategories() {
+        rankingListPlayerCategoryRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rankingListPlayerCategoryRecyclerView.setLayoutManager(linearLayoutManager);
+        RankingListPlayerCategoryAdapter rankingListAdapter = new RankingListPlayerCategoryAdapter(RankingListActivity.this, playerCategoriesList);
+        rankingListPlayerCategoryRecyclerView.setAdapter(rankingListAdapter);
+    }
+
+    void initYears() {
         rankingListYearsRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rankingListYearsRecyclerView.setLayoutManager(linearLayoutManager);
@@ -153,29 +156,11 @@ public class RankingListActivity extends AppCompatActivity implements Navigation
     }
 
 
-    void initSpinners() {
-
-        playerSpinner.setVisibility(View.VISIBLE);
-        playerSpinner.getBackground().setColorFilter(getResources().getColor(R.color.sand), PorterDuff.Mode.SRC_ATOP);
-        ArrayAdapter<String> playerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, playerCategoriesList);
-        playerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        playerSpinner.setAdapter(playerAdapter);
-        playerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                playerCategory = parent.getItemAtPosition(position).toString();
-                initLists();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-    }
-
     void initLists() {
+        colHeadersList = new ArrayList<>();
+        colContentList = new ArrayList<>();
+        rowContentList = new ArrayList<>();
+
         databaseReference.child(selectedYear + "/" + playerCategory).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -258,10 +243,11 @@ public class RankingListActivity extends AppCompatActivity implements Navigation
     }
 
 
-    public class RankingListYearsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
+    public class RankingListYearsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
         Context context;
         List<String> yearsList;
         private LayoutInflater inflator;
+
         public RankingListYearsAdapter(Context context, List<String> yearsList) {
             this.context = context;
             this.inflator = LayoutInflater.from(context);
@@ -291,6 +277,44 @@ public class RankingListActivity extends AppCompatActivity implements Navigation
         public void onClick(View v) {
             int itemPosition = RankingListActivity.rankingListYearsRecyclerView.getChildLayoutPosition(v);
             selectedYear = yearList.get(itemPosition);
+            initLists();
+        }
+    }
+
+    public class RankingListPlayerCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
+        Context context;
+        List<String> playerList;
+        private LayoutInflater inflator;
+
+        public RankingListPlayerCategoryAdapter(Context context, List<String> playerList) {
+            this.context = context;
+            this.inflator = LayoutInflater.from(context);
+            this.playerList = playerList;
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = inflator.inflate(R.layout.recyclerview_ranking_list_player_categories_row_layout, parent, false);
+            view.setOnClickListener(this);
+            RankingListPlayerCategoryViewHolder viewHolder = new RankingListPlayerCategoryViewHolder(view);
+            return viewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            ((RankingListPlayerCategoryViewHolder) holder).playerTextView.setText(playerList.get(position));
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return playerList.size();
+        }
+
+        @Override
+        public void onClick(View v) {
+            int itemPosition = RankingListActivity.rankingListPlayerCategoryRecyclerView.getChildLayoutPosition(v);
+            playerCategory = playerList.get(itemPosition);
             initLists();
         }
     }

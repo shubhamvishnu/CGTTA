@@ -7,9 +7,11 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -19,57 +21,57 @@
             android:orientation="vertical"
             tools:context="com.cgtta.cgtta.RankingListActivity">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar_rank"
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorAccent"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
-        </android.support.design.widget.AppBarLayout>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_rank"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorAccent"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            </android.support.design.widget.AppBarLayout>
 
 
-            <Spinner
-                android:id="@+id/rl_player_category_spinner"
-                android:layout_width="match_parent"
-                android:background="@color/white"
-                android:padding="8dp"
-                android:layout_height="wrap_content" />
             <android.support.v7.widget.RecyclerView
-                android:background="@color/colorPrimary"
+                android:id="@+id/ranking_list_player_category_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="6dp"
+                android:background="@color/colorPrimary" />
+
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/ranking_list_years_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/rl_title_text_view"
                 android:layout_width="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="8dp"
+                android:textColor="@color/white"
                 android:textSize="18sp"
-                android:layout_height="wrap_content" />
+                android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rl_recyclerview"
-                android:layout_margin="16dp"
-                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:background="@color/colorPrimary" />
 
         </LinearLayout>
 
     </FrameLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view_rank"
         android:layout_width="wrap_content"
