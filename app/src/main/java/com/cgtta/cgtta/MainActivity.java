@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         newsBulletinArticleRecyclerView = (RecyclerView) findViewById(R.id.nb_recyclerview);
         newsBulletinArticleRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+        linearLayoutManager.setStackFromEnd(true);
         newsBulletinArticleRecyclerView.setLayoutManager(linearLayoutManager);
         NewBulletinAdapter newBulletinAdapter = new NewBulletinAdapter(MainActivity.this);
         newsBulletinArticleRecyclerView.setAdapter(newBulletinAdapter);

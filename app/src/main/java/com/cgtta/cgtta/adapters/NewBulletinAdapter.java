@@ -1,6 +1,7 @@
 package com.cgtta.cgtta.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import com.cgtta.cgtta.ArticleActivity;
 import com.cgtta.cgtta.MainActivity;
 import com.cgtta.cgtta.R;
 import com.cgtta.cgtta.classes.FirebaseReferences;
@@ -81,7 +83,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     newArticleList.add(newsArticlePOJO);
                     typeList.add("article");
                     notifyItemInserted(position);
-                }else if(dataSnapshot.child("type").getValue().toString().equals("match")){
+                } else if (dataSnapshot.child("type").getValue().toString().equals("match")) {
                     NewsMatchPOJO newsMatchPOJO = dataSnapshot.getValue(NewsMatchPOJO.class);
                     newMatchList.add(newsMatchPOJO);
                     typeList.add("match");
@@ -114,9 +116,9 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if(typeList.get(position).equals("article")){
+        if (typeList.get(position).equals("article")) {
             return VIEW_BASIC_ARTICLE;
-        }else if(typeList.get(position).equals("match")){
+        } else if (typeList.get(position).equals("match")) {
             return VIEW_BASIC_MATCH;
         }
         return 0;
@@ -130,12 +132,12 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             view.setOnClickListener(this);
             NewsBulletinArticleViewHolder viewHolder = new NewsBulletinArticleViewHolder(view);
             return viewHolder;
-        } else if(viewType == VIEW_BASIC_MATCH){
+        } else if (viewType == VIEW_BASIC_MATCH) {
             View view = inflator.inflate(R.layout.recyclerview_new_bulletin_match_row_layout, parent, false);
             view.setOnClickListener(this);
             NewsBulletinMatchViewHolder viewHolder = new NewsBulletinMatchViewHolder(view);
             return viewHolder;
-        }else {
+        } else {
             return null;
         }
     }
@@ -156,12 +158,12 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             ++articlesCount;
 
-        }else if(getItemViewType(position) == VIEW_BASIC_MATCH){
-            ((NewsBulletinMatchViewHolder)holder).title.setText(newMatchList.get(matchCount).getTitle());
-            ((NewsBulletinMatchViewHolder)holder).location.setText(newMatchList.get(matchCount).getLocation());
-            ((NewsBulletinMatchViewHolder)holder).team1.setText(newMatchList.get(matchCount).getTeam1());
-            ((NewsBulletinMatchViewHolder)holder).team2.setText(newMatchList.get(matchCount).getTeam2());
-            ((NewsBulletinMatchViewHolder)holder).date.setText(newMatchList.get(matchCount).getDate());
+        } else if (getItemViewType(position) == VIEW_BASIC_MATCH) {
+            ((NewsBulletinMatchViewHolder) holder).title.setText(newMatchList.get(matchCount).getTitle());
+            ((NewsBulletinMatchViewHolder) holder).location.setText(newMatchList.get(matchCount).getLocation());
+            ((NewsBulletinMatchViewHolder) holder).team1.setText(newMatchList.get(matchCount).getTeam1());
+            ((NewsBulletinMatchViewHolder) holder).team2.setText(newMatchList.get(matchCount).getTeam2());
+            ((NewsBulletinMatchViewHolder) holder).date.setText(newMatchList.get(matchCount).getDate());
             ++matchCount;
         }
     }
@@ -174,6 +176,28 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onClick(View v) {
         int itemPosition = MainActivity.newsBulletinArticleRecyclerView.getChildLayoutPosition(v);
-        Toast.makeText(context, "" + itemPosition, Toast.LENGTH_SHORT).show();
+        if (getItemViewType(itemPosition) == VIEW_BASIC_ARTICLE) {
+            int articlePosition = getSpecificCount(itemPosition);
+            Intent intent = new Intent(context, ArticleActivity.class);
+            intent.putExtra("title", newArticleList.get(articlePosition).getTitle());
+            intent.putExtra("content", newArticleList.get(articlePosition).getContent());
+            intent.putExtra("by", newArticleList.get(articlePosition).getBy());
+            intent.putExtra("source", newArticleList.get(articlePosition).getSource());
+            intent.putExtra("date", newArticleList.get(articlePosition).getTime());
+            intent.putExtra("url", newArticleList.get(articlePosition).getImageUrl());
+            context.startActivity(intent);
+
+
+        }
+    }
+
+    int getSpecificCount(int position) {
+        int articleCount = -1;
+        for (int i = typeList.size() - 1; i >= position; i--) {
+            if (typeList.get(i).equals("article")) {
+                ++articleCount;
+            }
+        }
+        return articleCount;
     }
 }

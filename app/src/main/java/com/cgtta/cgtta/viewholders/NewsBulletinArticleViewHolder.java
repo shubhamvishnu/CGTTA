@@ -16,18 +16,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class NewsBulletinArticleViewHolder extends RecyclerView.ViewHolder {
-    public TextView titleTextView, contentTextView, byTextView, sourceTextView, dateTextView;
+    public TextView titleTextView, contentTextView, byTextView, sourceTextView, dateTextView, readMore;
 
     public ImageView articleCircleView;
+
     public NewsBulletinArticleViewHolder(View itemView) {
         super(itemView);
         titleTextView = (TextView) itemView.findViewById(R.id.article_title_textview);
-        titleTextView.setPaintFlags( titleTextView.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+        titleTextView.setPaintFlags(titleTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         contentTextView = (TextView) itemView.findViewById(R.id.article_content_textview);
         articleCircleView = (ImageView) itemView.findViewById(R.id.article_imageview);
         byTextView = (TextView) itemView.findViewById(R.id.article_by);
         sourceTextView = (TextView) itemView.findViewById(R.id.article_source);
         dateTextView = (TextView) itemView.findViewById(R.id.article_date);
+        readMore = (TextView) itemView.findViewById(R.id.read_more);
 
     }
 }
