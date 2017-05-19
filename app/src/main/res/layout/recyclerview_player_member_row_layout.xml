@@ -47,10 +47,10 @@
                     android:background="@android:color/transparent"
                     android:elevation="20dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_rank_color" />
+                    app:srcCompat="@drawable/ic_id_card" />
 
                 <TextView
-                    android:id="@+id/p_rank_textview"
+                    android:id="@+id/p_player_id_textview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"

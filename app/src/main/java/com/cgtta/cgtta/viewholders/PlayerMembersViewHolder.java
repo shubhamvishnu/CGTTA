@@ -13,12 +13,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class PlayerMembersViewHolder extends RecyclerView.ViewHolder {
-    public TextView nameTextView, rankTextView;
+    public TextView nameTextView, playerIdTextView;
     public CircleImageView profileImageView;
     public PlayerMembersViewHolder(View itemView) {
         super(itemView);
         nameTextView = (TextView) itemView.findViewById(R.id.p_name_textview);
-        rankTextView = (TextView) itemView.findViewById(R.id.p_rank_textview);
+        playerIdTextView = (TextView) itemView.findViewById(R.id.p_player_id_textview);
         profileImageView = (CircleImageView) itemView.findViewById(R.id.p_profile_image_view);
     }
 }

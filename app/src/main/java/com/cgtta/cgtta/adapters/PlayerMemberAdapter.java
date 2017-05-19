@@ -78,10 +78,10 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 memberMap = new HashMap<>();
                 int position = memberMapList.size();
                 memberMap.put("name", dataSnapshot.child("name").getValue().toString());
-                memberMap.put("rank", dataSnapshot.child("rank").getValue().toString());
-                memberMap.put("email", dataSnapshot.child("email").getValue().toString());
-                memberMap.put("number", dataSnapshot.child("number").getValue().toString());
-
+                memberMap.put("id", dataSnapshot.child("id").getValue().toString());
+                memberMap.put("state", dataSnapshot.child("state").getValue().toString());
+                memberMap.put("gender", dataSnapshot.child("gender").getValue().toString());
+                memberMap.put("dob", dataSnapshot.child("dob").getValue().toString());
                 memberMap.put("url", dataSnapshot.getKey());
                 memberMapList.add(memberMap);
 
@@ -132,7 +132,7 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (getItemViewType(position) == VIEW_TYPE_PLAYER_BASIC_DETAIL) {
             Map<String, Object> member = memberMapList.get(position);
             ((PlayerMembersViewHolder) holder).nameTextView.setText(member.get("name").toString());
-            ((PlayerMembersViewHolder) holder).rankTextView.setText(member.get("rank").toString());
+            ((PlayerMembersViewHolder) holder).playerIdTextView.setText(member.get("id").toString());
 
             Glide.with(context /* context */)
                     .using(new FirebaseImageLoader())
@@ -154,9 +154,10 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         Map<String, Object> member = memberMapList.get(itemPosition);
         Intent intent = new Intent(context, PlayerMemberDetailActivity.class);
         intent.putExtra("name", member.get("name").toString());
-        intent.putExtra("rank", member.get("rank").toString());
-        intent.putExtra("email", member.get("email").toString());
-        intent.putExtra("number", member.get("number").toString());
+        intent.putExtra("state", member.get("state").toString());
+        intent.putExtra("gender", member.get("gender").toString());
+        intent.putExtra("dob", member.get("dob").toString());
+        intent.putExtra("id", member.get("id").toString());
         intent.putExtra("url", member.get("url").toString());
         context.startActivity(intent);
     }

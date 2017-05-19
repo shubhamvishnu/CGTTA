@@ -17,7 +17,7 @@ import com.google.firebase.storage.StorageReference;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlayerMemberDetailActivity extends AppCompatActivity {
-    TextView nameTextView, rankTextView, emailTextView, numberTextView;
+    TextView nameTextView, playerId, state, gender, dob;
     CircleImageView profileImageView;
     StorageReference storageReference;
 
@@ -42,9 +42,11 @@ public class PlayerMemberDetailActivity extends AppCompatActivity {
 
         profileImageView = (CircleImageView) findViewById(R.id.player_profile_image_view);
         nameTextView = (TextView) findViewById(R.id.player_name);
-        rankTextView = (TextView) findViewById(R.id.player_rank_textview);
-        emailTextView = (TextView) findViewById(R.id.player_email);
-        numberTextView = (TextView) findViewById(R.id.player_number);
+        playerId = (TextView) findViewById(R.id.id_textview);
+        state = (TextView) findViewById(R.id.state_textview);
+        dob = (TextView) findViewById(R.id.dob_textview);
+        gender = (TextView) findViewById(R.id.gender_textview);
+
 
         initView();
 
@@ -54,15 +56,20 @@ public class PlayerMemberDetailActivity extends AppCompatActivity {
         try {
             if (extras != null) {
                 String nameString = extras.getString("name");
-                String rankString = extras.getString("rank");
-                String numberString = extras.getString("number");
-                String emailString = extras.getString("email");
+                String playerIdString =extras.getString("id");
+                String stateString =extras.getString("state");
+                String genderString =extras.getString("gender");
+                String dobString =extras.getString("dob");
                 String urlString = extras.getString("url");
 
                 nameTextView.setText(nameString);
-                rankTextView.setText(rankString);
-                emailTextView.setText(emailString);
-                numberTextView.setText(numberString);
+                playerId.setText(playerIdString);
+                state.setText(stateString);
+                dob.setText(dobString);
+                gender.setText(genderString);
+
+
+
 
                 Glide.with(this /* context */)
                         .using(new FirebaseImageLoader())
