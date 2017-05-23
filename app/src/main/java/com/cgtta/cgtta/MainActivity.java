@@ -1,11 +1,17 @@
 package com.cgtta.cgtta;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.NewBulletinAdapter;
@@ -25,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_bulletin);
+        checkForInternet();
         initNavigationDrawer();
         init();
     }
@@ -106,6 +114,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+    void checkForInternet(){
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        if(!(activeNetworkInfo != null && activeNetworkInfo.isConnected())){
+            Toast.makeText(this, "No internet connection. Kindly turn on the internet to keep the content up to date.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
 

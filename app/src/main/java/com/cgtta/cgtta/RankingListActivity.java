@@ -298,7 +298,7 @@ public class RankingListActivity extends AppCompatActivity implements Navigation
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((RankingListPlayerCategoryViewHolder) holder).playerTextView.setText(playerList.get(position));
+            ((RankingListPlayerCategoryViewHolder) holder).playerTextView.setText(playerList.get(position).replaceAll("_", " "));
 
         }
 

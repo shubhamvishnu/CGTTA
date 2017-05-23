@@ -35,6 +35,8 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,8 +52,8 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storageReference;
-    Map<String, Object> memberMap;
-    List<Map<String, Object>> memberMapList;
+    Map<String, String> memberMap;
+    List<Map<String, String>> memberMapList;
 
 
     public PlayerMemberAdapter(Context context) {
@@ -84,7 +86,11 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 memberMap.put("dob", dataSnapshot.child("dob").getValue().toString());
                 memberMap.put("url", dataSnapshot.getKey());
                 memberMapList.add(memberMap);
-
+                Collections.sort(memberMapList, new Comparator<Map<String, String>>() {
+                    public int compare(Map<String, String> m1, Map<String, String> m2) {
+                        return m1.get("name").compareTo(m2.get("name"));
+                    }
+                });
                 notifyItemInserted(position);
             }
 
@@ -130,9 +136,9 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_PLAYER_BASIC_DETAIL) {
-            Map<String, Object> member = memberMapList.get(position);
-            ((PlayerMembersViewHolder) holder).nameTextView.setText(member.get("name").toString());
-            ((PlayerMembersViewHolder) holder).playerIdTextView.setText(member.get("id").toString());
+            Map<String, String> member = memberMapList.get(position);
+            ((PlayerMembersViewHolder) holder).nameTextView.setText(member.get("name"));
+            ((PlayerMembersViewHolder) holder).playerIdTextView.setText(member.get("id"));
 
             Glide.with(context /* context */)
                     .using(new FirebaseImageLoader())
@@ -151,14 +157,14 @@ public class PlayerMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onClick(View v) {
         int itemPosition = PlayerMembersActivity.playerRecyclerView.getChildLayoutPosition(v);
-        Map<String, Object> member = memberMapList.get(itemPosition);
+        Map<String, String> member = memberMapList.get(itemPosition);
         Intent intent = new Intent(context, PlayerMemberDetailActivity.class);
-        intent.putExtra("name", member.get("name").toString());
-        intent.putExtra("state", member.get("state").toString());
-        intent.putExtra("gender", member.get("gender").toString());
-        intent.putExtra("dob", member.get("dob").toString());
-        intent.putExtra("id", member.get("id").toString());
-        intent.putExtra("url", member.get("url").toString());
+        intent.putExtra("name", member.get("name"));
+        intent.putExtra("state", member.get("state"));
+        intent.putExtra("gender", member.get("gender"));
+        intent.putExtra("dob", member.get("dob"));
+        intent.putExtra("id", member.get("id"));
+        intent.putExtra("url", member.get("url"));
         context.startActivity(intent);
     }
 }
