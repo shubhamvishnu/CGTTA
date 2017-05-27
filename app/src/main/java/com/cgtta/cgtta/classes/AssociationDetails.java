@@ -12,6 +12,15 @@ public class AssociationDetails {
     String number;
     String address;
     String profile_url;
+    String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getEmail() {
         return email;
@@ -35,16 +44,6 @@ public class AssociationDetails {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public AssociationDetails(String title, String name, String position, String profile_url, String address, String number, String email) {
-        this.name = name;
-        this.position = position;
-        this.title = title;
-        this.profile_url = profile_url;
-        this.address = address;
-        this.email = email;
-        this.number = number;
     }
 
     public String getProfile_url() {
