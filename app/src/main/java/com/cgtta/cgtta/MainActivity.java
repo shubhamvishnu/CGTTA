@@ -24,9 +24,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.NewBulletinAdapter;
+import com.cgtta.cgtta.classes.FirebaseReferences;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static RecyclerView newsBulletinArticleRecyclerView;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +114,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
     void init() {
+        databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_ANALYSIS);
+        databaseReference.keepSynced(true);
+        updateCount();
         newsBulletinArticleRecyclerView = (RecyclerView) findViewById(R.id.nb_recyclerview);
         newsBulletinArticleRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
@@ -121,6 +135,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(!(activeNetworkInfo != null && activeNetworkInfo.isConnected())){
             Toast.makeText(this, "No internet connection. Kindly turn on the internet to keep the content up to date.", Toast.LENGTH_SHORT).show();
         }
+    }
+    void updateCount(){
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int count = Integer.parseInt(dataSnapshot.child("no_of_views").getValue().toString());
+                Map<String, Object> analysisMap = new HashMap<>();
+                analysisMap.put("no_of_views", ++count);
+                databaseReference.setValue(analysisMap);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
