@@ -139,7 +139,7 @@ public class NewsNotificationService extends Service {
         mBuilder.setLargeIcon(largeIcon);
         mBuilder.setAutoCancel(true);
         mBuilder.setContentTitle(newsMatchPOJO.getTitle());
-        mBuilder.setContentText(newsMatchPOJO.getLocation() + " on " + newsMatchPOJO.getDate());
+        mBuilder.setContentText(newsMatchPOJO.getLocation() + ", " + newsMatchPOJO.getDate());
 
         Intent resultIntent = new Intent(this, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
