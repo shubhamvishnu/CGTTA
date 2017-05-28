@@ -45,9 +45,9 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     DatabaseReference databaseReference;
     StorageReference storageReference;
     List<NewsArticlePOJO> newArticleList;
-    int articlesCount;
+    
     List<NewsMatchPOJO> newMatchList;
-    int matchCount;
+
     List<String> typeList;
     LinearLayoutManager linearLayoutManager;
 
@@ -69,8 +69,6 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         typeList = new ArrayList<>();
         newMatchList = new ArrayList<>();
 
-        articlesCount = 0;
-        matchCount = 0;
 
         initItems();
     }
@@ -149,6 +147,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_BASIC_ARTICLE) {
+            int articlesCount = getSpecificCount(position);
             ((NewsBulletinArticleViewHolder) holder).titleTextView.setText(newArticleList.get(articlesCount).getTitle());
             ((NewsBulletinArticleViewHolder) holder).contentTextView.setText(newArticleList.get(articlesCount).getContent());
             ((NewsBulletinArticleViewHolder) holder).byTextView.setText(newArticleList.get(articlesCount).getBy());
@@ -163,6 +162,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ++articlesCount;
 
         } else if (getItemViewType(position) == VIEW_BASIC_MATCH) {
+            int matchCount = getMatchCount(position);
             ((NewsBulletinMatchViewHolder) holder).title.setText(newMatchList.get(matchCount).getTitle());
             ((NewsBulletinMatchViewHolder) holder).location.setText(newMatchList.get(matchCount).getLocation());
             ((NewsBulletinMatchViewHolder) holder).date.setText(newMatchList.get(matchCount).getDate());
@@ -203,5 +203,14 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
         return articleCount;
+    }
+    int getMatchCount(int position){
+        int count = -1;
+        for (int i = 0; i <= position; i++) {
+            if (typeList.get(i).equals("match")) {
+                ++count;
+            }
+        }
+        return count;
     }
 }

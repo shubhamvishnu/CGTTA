@@ -1,24 +1,25 @@
 package com.cgtta.cgtta.adapters;
 
 import android.content.Context;
+
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.cgtta.cgtta.ArticleActivity;
 import com.cgtta.cgtta.AssociationMemberActivity;
-
 import com.cgtta.cgtta.AssociationMemberDetailsActivity;
 import com.cgtta.cgtta.R;
 import com.cgtta.cgtta.classes.AssociationDetails;
 import com.cgtta.cgtta.classes.FirebaseReferences;
+
 import com.cgtta.cgtta.classes.OtherAssociationMember;
 import com.cgtta.cgtta.viewholders.AssociationMemberContentViewHolder;
-
+import com.cgtta.cgtta.viewholders.NewsBulletinArticleViewHolder;
+import com.cgtta.cgtta.viewholders.NewsBulletinMatchViewHolder;
 import com.cgtta.cgtta.viewholders.OtherAssociationViewHolder;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.ChildEventListener;
@@ -30,74 +31,63 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
-
-/**
- * Created by shubh on 5/12/2017.
- */
-
 public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
-    public static int VIEW_TYPE_ASSOC_BASIC_DETAIL = 1;
-    public static int VIEW_TYPE_ASSOC_MINIMAL_DETAIL = 2;
+
+    public static int VIEW_BASIC = 1;
+    public static int VIEW_MINIMAL = 2;
 
     Context context;
     private LayoutInflater inflator;
-
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     StorageReference storageReference;
 
-    List<AssociationDetails> associationDetailsList;
-    List<OtherAssociationMember> otherAssociationMemberList;
+    List<AssociationDetails> basicMemberList;
+
+    List<OtherAssociationMember> otherMemberList;
+
     List<String> typeList;
 
-    int associationDetailsCount;
-    int otherAssociationDetailsCount;
 
     public AssociationMemberAdapter(Context context) {
         this.context = context;
         this.inflator = LayoutInflater.from(context);
-        associationDetailsList = new ArrayList<>();
-        otherAssociationMemberList = new ArrayList<>();
-        typeList = new ArrayList<>();
-
-        associationDetailsCount = 0;
-        otherAssociationDetailsCount = 0;
         init();
     }
 
-    void init() {
+    private void init() {
         firebaseDatabase = FirebaseDatabase.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-
         databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_ASSOCIATION_MEMBER);
         databaseReference.keepSynced(true);
 
+        basicMemberList = new ArrayList<>();
+        typeList = new ArrayList<>();
+        otherMemberList = new ArrayList<>();
+
+
         initItems();
     }
-
     void initItems() {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 int position = typeList.size();
                 if (dataSnapshot.child("type").getValue().toString().equals("association_type_detailed")) {
-
                     AssociationDetails associationDetails = dataSnapshot.getValue(AssociationDetails.class);
                     associationDetails.setProfile_url(dataSnapshot.getKey());
-                    associationDetailsList.add(associationDetails);
+                    basicMemberList.add(associationDetails);
                     typeList.add("association_type_detailed");
-                    Toast.makeText(context, associationDetails.toString(), Toast.LENGTH_SHORT).show();
                     notifyItemInserted(position);
                 } else if (dataSnapshot.child("type").getValue().toString().equals("association_type_no_detail")) {
                     OtherAssociationMember otherAssociationMember = dataSnapshot.getValue(OtherAssociationMember.class);
-                    otherAssociationMemberList.add(otherAssociationMember);
+                    otherMemberList.add(otherAssociationMember);
                     typeList.add("association_type_no_detail");
                     notifyItemInserted(position);
-
                 }
+
             }
 
             @Override
@@ -125,22 +115,22 @@ public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public int getItemViewType(int position) {
         if (typeList.get(position).equals("association_type_detailed")) {
-            return VIEW_TYPE_ASSOC_BASIC_DETAIL;
+            return VIEW_BASIC;
         } else if (typeList.get(position).equals("association_type_no_detail")) {
-            return VIEW_TYPE_ASSOC_MINIMAL_DETAIL;
-        } else {
-            return 0;
+            return VIEW_MINIMAL;
         }
+        return 0;
+
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_ASSOC_BASIC_DETAIL) {
+        if (viewType == VIEW_BASIC) {
             View view = inflator.inflate(R.layout.recyclerview_association_content_row_layout, parent, false);
             view.setOnClickListener(this);
             AssociationMemberContentViewHolder viewHolder = new AssociationMemberContentViewHolder(view);
             return viewHolder;
-        } else if (viewType == VIEW_TYPE_ASSOC_MINIMAL_DETAIL) {
+        } else if (viewType == VIEW_MINIMAL) {
             View view = inflator.inflate(R.layout.recyclerview_other_association_members_row_layout, parent, false);
             view.setOnClickListener(this);
             OtherAssociationViewHolder viewHolder = new OtherAssociationViewHolder(view);
@@ -151,23 +141,29 @@ public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == VIEW_TYPE_ASSOC_BASIC_DETAIL) {
-            ((AssociationMemberContentViewHolder) holder).titleTextView.setText(associationDetailsList.get(associationDetailsCount).getTitle());
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 
-            ((AssociationMemberContentViewHolder) holder).nameTextView.setText(associationDetailsList.get(associationDetailsCount).getName());
-            ((AssociationMemberContentViewHolder) holder).positionTextView.setText(associationDetailsList.get(associationDetailsCount).getPosition());
+        if (getItemViewType(position) == VIEW_BASIC) {
+            int basicMemberCount = getSpecificPosition(position);
+            ((AssociationMemberContentViewHolder) holder).titleTextView.setText(basicMemberList.get(basicMemberCount).getTitle());
+            ((AssociationMemberContentViewHolder) holder).positionTextView.setText(basicMemberList.get(basicMemberCount).getPosition());
+            ((AssociationMemberContentViewHolder) holder).nameTextView.setText(basicMemberList.get(basicMemberCount).getName());
 
             Glide.with(context /* context */)
                     .using(new FirebaseImageLoader())
-                    .load(storageReference.child(FirebaseReferences.FIREBASE_ASSOCIATION_PROFILE_PICTURES + "/" + associationDetailsList.get(associationDetailsCount).getProfile_url() + ".jpg"))
+                    .load(storageReference.child(FirebaseReferences.FIREBASE_ASSOCIATION_PROFILE_PICTURES + "/" + basicMemberList.get(basicMemberCount).getProfile_url() + ".jpg"))
                     .into(((AssociationMemberContentViewHolder) holder).previewProfileImageView);
-            ++associationDetailsCount;
-        } else {
-            ((OtherAssociationViewHolder) holder).titleTextView.setText(otherAssociationMemberList.get(otherAssociationDetailsCount).getTitle());
-            ((OtherAssociationViewHolder) holder).cityTextView.setText(otherAssociationMemberList.get(otherAssociationDetailsCount).getCity());
-            ((OtherAssociationViewHolder) holder).nameTextView.setText(otherAssociationMemberList.get(otherAssociationDetailsCount).getName());
-            ++otherAssociationDetailsCount;
+
+            ++basicMemberCount;
+
+        } else if (getItemViewType(position) == VIEW_MINIMAL) {
+            int minimalMemberCount = getOtherSpecificPosition(position);
+
+            ((OtherAssociationViewHolder) holder).nameTextView.setText(otherMemberList.get(minimalMemberCount).getName());
+            ((OtherAssociationViewHolder) holder).cityTextView.setText(otherMemberList.get(minimalMemberCount).getCity());
+            ((OtherAssociationViewHolder) holder).titleTextView.setText(otherMemberList.get(minimalMemberCount).getTitle());
+
+            ++minimalMemberCount;
         }
     }
 
@@ -179,26 +175,32 @@ public class AssociationMemberAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public void onClick(View v) {
         int itemPosition = AssociationMemberActivity.associationMemberRecyclerView.getChildLayoutPosition(v);
-        if (getItemViewType(itemPosition) == VIEW_TYPE_ASSOC_BASIC_DETAIL) {
-            int memberCount = getSpecificCount(itemPosition);
+        if (getItemViewType(itemPosition) == VIEW_BASIC) {
+            int memberCount = getSpecificPosition(itemPosition);
             Intent intent = new Intent(context, AssociationMemberDetailsActivity.class);
-            intent.putExtra("title", associationDetailsList.get(memberCount).getTitle());
-            intent.putExtra("name", associationDetailsList.get(memberCount).getName());
-            intent.putExtra("position", associationDetailsList.get(memberCount).getPosition());
-            intent.putExtra("address", associationDetailsList.get(memberCount).getAddress());
-            intent.putExtra("number", associationDetailsList.get(memberCount).getNumber());
-            intent.putExtra("email", associationDetailsList.get(memberCount).getEmail());
-            intent.putExtra("url", associationDetailsList.get(memberCount).getProfile_url());
+            intent.putExtra("title", basicMemberList.get(memberCount).getTitle());
+            intent.putExtra("name", basicMemberList.get(memberCount).getName());
+            intent.putExtra("position", basicMemberList.get(memberCount).getPosition());
+            intent.putExtra("address", basicMemberList.get(memberCount).getAddress());
+            intent.putExtra("number", basicMemberList.get(memberCount).getNumber());
+            intent.putExtra("email", basicMemberList.get(memberCount).getEmail());
+            intent.putExtra("url", basicMemberList.get(memberCount).getProfile_url());
             context.startActivity(intent);
-        } else {
-
         }
-
     }
-    int getSpecificCount(int position) {
+    int getSpecificPosition(int position){
         int memberCount = -1;
         for (int i = 0; i <= position; i++) {
             if (typeList.get(i).equals("association_type_detailed")) {
+                ++memberCount;
+            }
+        }
+        return memberCount;
+    }
+    int getOtherSpecificPosition(int position){
+        int memberCount = -1;
+        for (int i = 0; i <= position; i++) {
+            if (typeList.get(i).equals("association_type_no_detail")) {
                 ++memberCount;
             }
         }

@@ -13,6 +13,24 @@ public class AssociationDetails {
     String address;
     String profile_url;
     String type;
+    String fax;
+    String bio;
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
     public String getType() {
         return type;
