@@ -45,7 +45,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     DatabaseReference databaseReference;
     StorageReference storageReference;
     List<NewsArticlePOJO> newArticleList;
-    
+
     List<NewsMatchPOJO> newMatchList;
 
     List<String> typeList;
@@ -90,7 +90,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     typeList.add("match");
                     notifyItemInserted(position);
                 }
-                linearLayoutManager.scrollToPosition(0);
+                linearLayoutManager.scrollToPosition(position);
 
             }
 

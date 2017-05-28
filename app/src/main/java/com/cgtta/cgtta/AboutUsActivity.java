@@ -16,9 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.cgtta.cgtta.classes.FirebaseReferences;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class AboutUsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView versionTextView, developerTextView;
+    TextView aboutUsTextView;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,9 @@ public class AboutUsActivity extends AppCompatActivity implements NavigationView
         View hView = navigationView.getHeaderView(0);
         ImageView navImageHeader = (ImageView) hView.findViewById(R.id.navigation_drawer_header);
         Glide.with(this).load(R.drawable.cgtta_logo).into(navImageHeader);
+
+
+
     }
 
     @Override
@@ -93,8 +105,25 @@ public class AboutUsActivity extends AppCompatActivity implements NavigationView
     }
 
     void init() {
+        databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_ABOUT_US);
+        databaseReference.keepSynced(true);
+
+        aboutUsTextView = (TextView) findViewById(R.id.about_us_content_textview);
         versionTextView = (TextView) findViewById(R.id.version_textview);
         developerTextView = (TextView) findViewById(R.id.developer_textview);
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                aboutUsTextView.setText(dataSnapshot.child("content").getValue().toString());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "pacifico_regular.ttf");
         versionTextView.setTypeface(typeface);

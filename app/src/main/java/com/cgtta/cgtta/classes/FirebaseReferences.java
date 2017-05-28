@@ -12,6 +12,8 @@ public class FirebaseReferences {
     public static final String FIREBASE_RANKING_LIST = "ranking_list";
     public static final String FIREBASE_CONTACT = "contact";
     public static final String FIREBASE_BULLETIN = "news";
+    public static final String FIREBASE_ABOUT_US = "about_us";
+
 
 
 

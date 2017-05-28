@@ -34,6 +34,7 @@
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </android.support.design.widget.AppBarLayout>
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -44,6 +45,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/about_us_content_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
@@ -52,28 +54,41 @@
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 
+
                     <TextView
-                        android:id="@+id/version_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginLeft="8dp"
-
-                        android:text="version"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="8dp"
                         android:gravity="center"
+                        android:text="Developed by"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/developer_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="version"
                         android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
                         android:gravity="center"
+                        android:text="version"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/version_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="version"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
