@@ -1,5 +1,6 @@
 package com.cgtta.cgtta;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,7 +25,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cgtta.cgtta.adapters.NewBulletinAdapter;
+import com.cgtta.cgtta.classes.CgttaConstants;
 import com.cgtta.cgtta.classes.FirebaseReferences;
+import com.cgtta.cgtta.services.NewsNotificationService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         init();
     }
 
+
+
+
     void initNavigationDrawer() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         toolbar.setTitle("News Bulletin");
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageView navImageHeader = (ImageView) hView.findViewById(R.id.navigation_drawer_header);
         Glide.with(this).load(R.drawable.cgtta_logo).into(navImageHeader);
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
@@ -107,12 +114,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
 
-
         }
         DrawerLayout drawer1 = (DrawerLayout) findViewById(R.id.drawer_layout_main);
         drawer1.closeDrawer(GravityCompat.START);
         return false;
     }
+
     void init() {
         databaseReference = firebaseDatabase.getReference(FirebaseReferences.FIREBASE_ANALYSIS);
         databaseReference.keepSynced(true);
@@ -128,15 +135,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
-    void checkForInternet(){
+
+    void checkForInternet() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        if(!(activeNetworkInfo != null && activeNetworkInfo.isConnected())){
+        if (!(activeNetworkInfo != null && activeNetworkInfo.isConnected())) {
             Toast.makeText(this, "No internet connection. Kindly turn on the internet to keep the content up to date.", Toast.LENGTH_SHORT).show();
         }
     }
-    void updateCount(){
+
+    void updateCount() {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -153,8 +162,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
     }
+    void initService() {
+            startService(new Intent(getBaseContext(), NewsNotificationService.class));
 
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        initService();
 
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

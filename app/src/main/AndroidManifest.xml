@@ -49,6 +49,7 @@
         <activity
             android:name=".AboutUsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <service android:name=".services.NewsNotificationService" />
     </application>
 
 </manifest>

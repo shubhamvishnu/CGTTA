@@ -2,6 +2,7 @@ package com.cgtta.cgtta.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.cgtta.cgtta.R;
 import com.cgtta.cgtta.classes.FirebaseReferences;
 import com.cgtta.cgtta.classes.NewsArticlePOJO;
 import com.cgtta.cgtta.classes.NewsMatchPOJO;
+import com.cgtta.cgtta.classes.SharedPreferencesConstants;
 import com.cgtta.cgtta.viewholders.NewsBulletinArticleViewHolder;
 import com.cgtta.cgtta.viewholders.NewsBulletinMatchViewHolder;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -25,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -74,6 +77,7 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     void initItems() {
+        updateOverallCount();
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -106,6 +110,25 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void updateOverallCount() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int newsCount = (int) dataSnapshot.getChildrenCount();
+                SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPreferencesConstants.NEWS_PREFERENCE, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("news_count", newsCount);
+                editor.apply();
 
             }
 
@@ -204,7 +227,8 @@ public class NewBulletinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         return articleCount;
     }
-    int getMatchCount(int position){
+
+    int getMatchCount(int position) {
         int count = -1;
         for (int i = 0; i <= position; i++) {
             if (typeList.get(i).equals("match")) {
